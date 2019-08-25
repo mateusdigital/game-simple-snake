@@ -20,8 +20,8 @@
 //----------------------------------------------------------------------------//
 // Constants                                                                  //
 //----------------------------------------------------------------------------//
-const BLOCK_SIZE      = 20;
-const BLOCK_HALF_SIZE = BLOCK_SIZE * 0.5;
+const BLOCK_SIZE         = 20;
+const BLOCK_HALF_SIZE    = BLOCK_SIZE * 0.5;
 const FOOD_MIN_COUNT     = 3;
 const SNAKE_INITIAL_SIZE = 5;
 const SNAKE_TIME_TO_MOVE = 0.1;
