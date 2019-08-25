@@ -486,11 +486,20 @@ class Field
                 this.points.push(Vector_Create(i, j));
             }
         }
+
+        this.texture = document.createElement("canvas").getContext("2d");
+        this.texture.canvas.width  = Canvas_Width;
+        this.texture.canvas.height = Canvas_Height;
+        this.texture.width  = Canvas_Width;
+        this.texture.height = Canvas_Height;
     }
 
-    draw()
+    updateTexture()
     {
-        for(let i = 0, len = this.points.length; i < len; ++i) {
+        Canvas_SetRenderTarget(this.texture);
+        Canvas_ClearWindow("black");
+
+        for(let i = 0, len = this.points.length ; i < len; ++i) {
             // Point position.
             let px = this.points[i].x;
             let py = this.points[i].y;
@@ -508,13 +517,25 @@ class Field
                 total_rgb = chroma.mix(b, total_rgb, 0.5, "lrgb");
             } // food
 
+            let tx = px * BLOCK_SIZE + Canvas_Half_Width;
+            let ty = py * BLOCK_SIZE + Canvas_Half_Height;
             Canvas_Push();
                 Canvas_SetStrokeStyle(total_rgb.hex());
-                Canvas_Translate(px * BLOCK_SIZE, py * BLOCK_SIZE);
+                Canvas_Translate(tx, ty);
                 Canvas_DrawLine(0, 0, BLOCK_SIZE, 0);
                 Canvas_DrawLine(0, 0, 0, BLOCK_SIZE);
             Canvas_Pop();
         }
+
+        Canvas_SetRenderTarget(null);
+    }
+
+    draw()
+    {
+        Canvas_Push();
+            Canvas_Translate(-Canvas_Half_Width, -Canvas_Half_Height);
+            CurrContext.drawImage(this.texture.canvas, 0, 0);
+        Canvas_Pop();
     }
 }; // class Field
 
@@ -597,6 +618,8 @@ class Trail
                 this.blocks.push(b);
             }
         }
+
+        field.updateTexture();
     }
 
 
@@ -657,7 +680,7 @@ function Draw(dt)
     //
     // Draw.
     Canvas_Push();
-        let s = 0.9;
+        // let s = 0.8;
         // Canvas_Scale(s, s);
         // Canvas_SetFillStyle("red");
         // Canvas_FillRect(-200, -200, 400, 400);
@@ -690,7 +713,7 @@ function KeyPress(code)
 Canvas_Setup({
     main_title        : "Simple Snake",
     main_date         : "Aug 10, 2019",
-    main_version      : "v1.0.0",
+    main_version      : "v1.0.1",
     main_instructions : "<br><b>arrow keys</b> to move the snake<br><b>R</b> to start a new game.",
     main_link: "<a href=\"http://stdmatt.com/demos/startfield.html\">More info</a>"
 });
