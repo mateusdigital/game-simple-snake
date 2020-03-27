@@ -68,7 +68,7 @@ function DrawBlock(x, y, color, scale, rotation)
 function BlockRandomColor()
 {
     let color = chroma.hsl(
-        Math_RandomInt(0, 360), 0.5, 0.5, "hsl"
+        Random_Int(0, 360), 0.5, 0.5, "hsl"
     );
 
     return color;
@@ -79,8 +79,8 @@ function CreateFood()
 {
     while(1) {
         let found = true;
-        let x = Math_RandomInt(leftEdge, rightEdge);
-        let y = Math_RandomInt(topEdge, bottomEdge);
+        let x = Random_Int(leftEdge, rightEdge);
+        let y = Random_Int(topEdge, bottomEdge);
 
         for(let i = 0, len = snake.blocks.length; i < len; ++i) {
             let b = snake.blocks[i];
@@ -647,14 +647,53 @@ class Trail
 // Setup / Draw                                                               //
 //----------------------------------------------------------------------------//
 //------------------------------------------------------------------------------
+function InitializeCanvas()
+{
+    //
+    // Configure the Canvas.
+    const parent        = document.getElementById("canvas_div");
+    const parent_width  = parent.clientWidth;
+    const parent_height = parent.clientHeight;
+
+    const max_side = Math_Max(parent_width, parent_height);
+    const min_side = Math_Min(parent_width, parent_height);
+
+    const ratio = min_side / max_side;
+
+    // Landscape
+    if(parent_width > parent_height) {
+        Canvas_CreateCanvas(800, 800 * ratio, parent);
+    }
+    // Portrait
+    else {
+        Canvas_CreateCanvas(800 * ratio, 800, parent);
+    }
+
+    Canvas.style.width  = "100%";
+    Canvas.style.height = "100%";
+}
+
+//------------------------------------------------------------------------------
 function Setup()
 {
+    Random_Seed(null);
+    InitializeCanvas();
+    Input_InstallBasicKeyboardHandler();
+
     leftEdge   = Math_Int(Canvas_Edge_Left   / BLOCK_SIZE);
     rightEdge  = Math_Int(Canvas_Edge_Right  / BLOCK_SIZE);
     topEdge    = Math_Int(Canvas_Edge_Top    / BLOCK_SIZE);
     bottomEdge = Math_Int(Canvas_Edge_Bottom / BLOCK_SIZE);
 
+    // @notice(stdmatt): Trick to make the canvas fits perfect with the game
+    // field, since it might be not even divisible at first place.
+    const resize_width  = (rightEdge  + Math_Abs(leftEdge)) * BLOCK_SIZE;
+    const resize_height = (bottomEdge + Math_Abs(topEdge )) * BLOCK_SIZE;
+
+    Canvas_Resize(resize_width, resize_height);
+
     RestartGame();
+    Canvas_Draw(0);
 }
 
 //------------------------------------------------------------------------------
@@ -710,10 +749,11 @@ function KeyPress(code)
 //----------------------------------------------------------------------------//
 // Entry Point                                                                //
 //----------------------------------------------------------------------------//
-Canvas_Setup({
-    main_title        : "Simple Snake",
-    main_date         : "Aug 10, 2019",
-    main_version      : "v1.0.1",
-    main_instructions : "<br><b>arrow keys</b> to move the snake<br><b>R</b> to start a new game.",
-    main_link: "<a href=\"http://stdmatt.com/demos/startfield.html\">More info</a>"
-});
+Setup();
+// Canvas_Setup({
+//     main_title        : "Simple Snake",
+//     main_date         : "Aug 10, 2019",
+//     main_version      : "v1.0.1",
+//     main_instructions : "<br><b>arrow keys</b> to move the snake<br><b>R</b> to start a new game.",
+//     main_link: "<a href=\"http://stdmatt.com/demos/startfield.html\">More info</a>"
+// });
