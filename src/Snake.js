@@ -63,7 +63,7 @@ function Ease_OutElastic(t, b, c, d)
 //------------------------------------------------------------------------------
 function ApplyShadowCSS()
 {
-    let shadow_blur = Math_Map(
+    const shadow_blur = Math_Map(
         shadow_spread,
         SHADOW_SPREAD_MIN,
         SHADOW_SPREAD_MAX,
@@ -71,14 +71,16 @@ function ApplyShadowCSS()
         snake.blocks.length
     );
 
+    const hex_color = snake.targetColor.hex()
     const css_str = String_Cat(
         "0px 0px ",
         shadow_blur,   "px ",
         shadow_spread, "px ",
-        snake.targetColor.hex()
+        hex_color
     );
 
     document.getElementById("canvas_div").style.boxShadow = css_str;
+    document.getElementById("logo_div"  ).style.color     = hex_color;
 }
 
 //------------------------------------------------------------------------------
