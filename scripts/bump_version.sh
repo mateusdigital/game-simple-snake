@@ -39,4 +39,4 @@ if [ -z "$BUMP_THE_VERSION" ]; then
     pw_log_fatal "Coundn't find (bump-the-version) program - Aborting...";
 fi;
 
-"${BUMP_THE_VERSION}" "${SRC_FILE}" "const NUCLEAR_RAIN_VERSION =" bump "$1";
+"${BUMP_THE_VERSION}" "${SRC_FILE}" "const SIMPLE_SNAKE_VERSION =" bump "$1";

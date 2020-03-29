@@ -34,7 +34,7 @@ SCRIPT_DIR="$(pw_get_script_dir)";
 ROOT_DIR="$(pw_abspath "${SCRIPT_DIR}/..")";
 BUILD_DIR="${ROOT_DIR}/build";
 DIST_DIR="${ROOT_DIR}/dist";
-TO_COPY="libs/ src/ res/ css/ index.html";
+TO_COPY="libs/ src/ css/ index.html";
 
 
 ##----------------------------------------------------------------------------##
