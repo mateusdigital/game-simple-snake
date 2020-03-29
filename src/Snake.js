@@ -6,13 +6,14 @@
 //                   |___/\__\__,_|_| |_| |_|\__,_|\__|\__|                   //
 //                                                                            //
 //  File      : Snake.js                                                      //
-//  Project   : stdmatt-games                                                 //
-//  Date      : Aug 10, 2019                                                  //
+//  Project   : snake                                                         //
+//  Date      : Aug 25, 2019                                                  //
 //  License   : GPLv3                                                         //
 //  Author    : stdmatt <stdmatt@pixelwizards.io>                             //
-//  Copyright : stdmatt - 2019                                                //
+//  Copyright : stdmatt 2019, 2020                                            //
 //                                                                            //
 //  Description :                                                             //
+//                                                                            //
 //   Just a simple snake game...                                              //
 //---------------------------------------------------------------------------~//
 
