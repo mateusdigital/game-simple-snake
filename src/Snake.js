@@ -22,9 +22,14 @@
 //----------------------------------------------------------------------------//
 const BLOCK_SIZE         = 20;
 const BLOCK_HALF_SIZE    = BLOCK_SIZE * 0.5;
-const FOOD_MIN_COUNT     = 3;
-const SNAKE_INITIAL_SIZE = 5;
+const FOOD_MIN_COUNT     =  4;
+const SNAKE_INITIAL_SIZE =  5;
 const SNAKE_TIME_TO_MOVE = 0.1;
+
+const SHADOW_SPREAD_MIN = SNAKE_INITIAL_SIZE;
+const SHADOW_SPREAD_MAX = SNAKE_INITIAL_SIZE * 11;
+const SHADOW_BLUR_MIN   = 15;
+const SHADOW_BLUR_MAX   = 35;
 
 
 //----------------------------------------------------------------------------//
@@ -34,6 +39,9 @@ let snake;
 let foods;
 let field;
 let trail;
+
+let shadow_anim_group = null;
+let shadow_spread     = SHADOW_SPREAD_MIN;
 
 
 //----------------------------------------------------------------------------//
@@ -48,6 +56,56 @@ function Ease_OutElastic(t, b, c, d)
     if (a < Math.abs(c)) { a=c; var s=p/4; }
     else var s = p/(2*Math.PI) * Math.asin (c/a);
     return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+}
+
+
+
+//------------------------------------------------------------------------------
+function ApplyShadowCSS()
+{
+    let shadow_blur = Math_Map(
+        shadow_spread,
+        SHADOW_SPREAD_MIN,
+        SHADOW_SPREAD_MAX,
+        SHADOW_BLUR_MIN,
+        snake.blocks.length
+    );
+
+    const css_str = String_Cat(
+        "0px 0px ",
+        shadow_blur,   "px ",
+        shadow_spread, "px ",
+        snake.targetColor.hex()
+    );
+
+    document.getElementById("canvas_div").style.boxShadow = css_str;
+}
+
+//------------------------------------------------------------------------------
+function UpdateFieldShadow()
+{
+    const time_modifier = 0.6;
+    const max_time      = (snake.TIME_TO_ANIMATE_COLOR * 1000) * time_modifier;
+
+    // Discarding the previous Tween Group makes easier to not
+    // have more than one tween running at any given type.
+    shadow_anim_group = Tween_CreateGroup();
+    Tween_CreateBasic(max_time, shadow_anim_group)
+        .onUpdate((v)=>{
+            const value = v.value;
+            shadow_spread = Math_Map(
+                v.value,
+                0, 1,
+                SHADOW_SPREAD_MIN,
+                Math_Min(snake.blocks.length)
+            )
+
+            ApplyShadowCSS();
+        })
+        .easing(TWEEN.Easing.Circular.Out)
+        .repeat(1)
+        .yoyo(true)
+        .start();
 }
 
 //------------------------------------------------------------------------------
@@ -86,7 +144,6 @@ function CreateFood()
             let b = snake.blocks[i];
             if(b.position.x == x && b.position.y == y) {
                 found = false;
-                Log(b.position.x, b.position.y,  x, y);
                 break;
             }
         }
@@ -127,7 +184,6 @@ function CheckSnakeFoodCollision(snake, foods)
 //------------------------------------------------------------------------------
 function RestartGame()
 {
-
     field = new Field();
     trail = new Trail();
 
@@ -137,6 +193,8 @@ function RestartGame()
     for(let i = 0; i < FOOD_MIN_COUNT; ++i) {
         CreateFood();
     }
+
+    UpdateFieldShadow();
 }
 
 
@@ -218,6 +276,8 @@ class Snake
         this.initialColor       = this.currentColor;
         this.targetColor        = color;
         this.colorAnimationTime = 0;
+
+        UpdateFieldShadow();
     } // changeColor
 
 
@@ -232,10 +292,9 @@ class Snake
             this.targetDir = Vector_Create(+1, 0);
         } else if(Keyboard[KEY_UP] && this.dir.y == 0) {
             this.targetDir = Vector_Create(0, -1);
-        } else if(Keyboard[KEY_DOWN] && this.dir.y == 0) {
+        } else if(Keyboard[KEY_DOWN] && this.dir.y == 0) {30
             this.targetDir = Vector_Create(0, +1);
         }
-
         //
         // Move
         this.moveCooldownTime += dt;
@@ -330,7 +389,7 @@ class Snake
                 chroma(this.initialColor.hex()),
                 chroma(this.targetColor .hex()),
                 this.colorAnimationTime / this.TIME_TO_ANIMATE_COLOR
-            )
+            );
         }
 
         //
@@ -731,6 +790,12 @@ function Draw(dt)
             foods[i].draw();
         }
     Canvas_Pop();
+
+    Tween_Update(dt);
+    if(shadow_anim_group) {
+        shadow_anim_group.update(dt);
+    }
+
 }
 
 
