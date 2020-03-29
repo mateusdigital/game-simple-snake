@@ -71,16 +71,17 @@ function ApplyShadowCSS()
         snake.blocks.length
     );
 
-    const hex_color = snake.targetColor.hex()
+    const target_color  = snake.targetColor .hex();
+    const current_color = snake.currentColor.hex();
     const css_str = String_Cat(
         "0px 0px ",
         shadow_blur,   "px ",
         shadow_spread, "px ",
-        hex_color
+        target_color
     );
 
     document.getElementById("canvas_div").style.boxShadow = css_str;
-    document.getElementById("logo_div"  ).style.color     = hex_color;
+    document.getElementById("logo_div"  ).style.color     = current_color;
 }
 
 //------------------------------------------------------------------------------
