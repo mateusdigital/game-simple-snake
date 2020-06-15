@@ -21,11 +21,16 @@
        url('unsteady_oversteer-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
 
-#logo_div
-{
+@font-face {
+  font-family: 'JetBrainsMono-Regular';
+  src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#logo_div {
   font-family: "unsteady_oversteerregular";
   color: white;
   font-size: 40px;
@@ -37,8 +42,7 @@
     text-align: center;
 }
 
-#canvas_div
-{
+#canvas_div {
     position:fixed;
     top   : 15%;
     bottom: 10%;
@@ -51,4 +55,13 @@
 
 body {
   background-color: #0f0f0f;
+  margin: 0 0 0 0;
+}
+
+#footer {
+  font-family: "JetBrainsMono-Regular", Monospace, Courier;
+  position: absolute;
+  bottom: 1em;
+  text-align: center;
+  width: 100%;
 }

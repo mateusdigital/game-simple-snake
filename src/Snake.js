@@ -60,7 +60,6 @@ function Ease_OutElastic(t, b, c, d)
 }
 
 
-
 //------------------------------------------------------------------------------
 function ApplyShadowCSS()
 {
@@ -81,8 +80,9 @@ function ApplyShadowCSS()
         target_color
     );
 
-    document.getElementById("canvas_div").style.boxShadow = css_str;
-    document.getElementById("logo_div"  ).style.color     = current_color;
+    document.getElementById("canvas_div" ).style.boxShadow = css_str;
+    document.getElementById("logo_div"   ).style.color     = current_color;
+    document.getElementById("footer"     ).style.color     = current_color;
 }
 
 //------------------------------------------------------------------------------
@@ -290,13 +290,13 @@ class Snake
     {
         //
         // Check for the new direction.
-        if(Keyboard[KEY_LEFT] && this.dir.x == 0) {
+        if(Keyboard[KEY_ARROW_LEFT] && this.dir.x == 0) {
             this.targetDir = Vector_Create(-1, 0);
-        } else if(Keyboard[KEY_RIGHT] && this.dir.x == 0) {
+        } else if(Keyboard[KEY_ARROW_RIGHT] && this.dir.x == 0) {
             this.targetDir = Vector_Create(+1, 0);
-        } else if(Keyboard[KEY_UP] && this.dir.y == 0) {
+        } else if(Keyboard[KEY_ARROW_UP] && this.dir.y == 0) {
             this.targetDir = Vector_Create(0, -1);
-        } else if(Keyboard[KEY_DOWN] && this.dir.y == 0) {30
+        } else if(Keyboard[KEY_ARROW_DOWN] && this.dir.y == 0) {30
             this.targetDir = Vector_Create(0, +1);
         }
         //
@@ -740,6 +740,7 @@ function InitializeCanvas()
 function Setup()
 {
     Random_Seed(null);
+
     InitializeCanvas();
     Input_InstallBasicKeyboardHandler();
 
@@ -757,6 +758,10 @@ function Setup()
 
     RestartGame();
     Canvas_Draw(0);
+
+    document.getElementById("footer").innerText = String_Cat(
+        "v", SIMPLE_SNAKE_VERSION, " - stdmatt MMXX - GPLv3"
+    );
 }
 
 //------------------------------------------------------------------------------
