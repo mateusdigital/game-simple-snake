@@ -715,10 +715,34 @@ let originalHeight = 600;
 function InitializeCanvas(){
     const canvas = document.getElementById("canvas_div");
 
-    if(window.innerHeight > window.innerWidth) {
-        const t = originalWidth;
-        originalWidth = originalHeight;
-        originalHeight = originalWidth;
+    // if(window.innerHeight > window.innerWidth) {
+    //     const t = originalWidth;
+    //     originalWidth = originalHeight;
+    //     originalHeight = originalWidth;
+    // }
+
+    // Less area - let just be the size.
+    const area = originalWidth * originalHeight;
+    const window_area = innerWidth * innerHeight;
+
+    console.log("area : ", area);
+    console.log("warea: ", window_area);
+
+    if(window_area < area) {
+        originalWidth = innerWidth;
+        originalHeight = innerHeight;
+        console.log("Less area");
+    } else {
+        const ratio_w = innerWidth / originalWidth;
+        const ratio_h = innerHeight / originalHeight;
+
+        const new_w = originalWidth * ratio_w;
+        const new_h = originalHeight * ratio_h;
+
+        originalWidth = Math.min(new_h, originalWidth);
+        originalHeight = Math.min(new_h, originalHeight);
+
+        console.log("Scaled");
     }
 
     Canvas_CreateCanvas(originalWidth, originalHeight, canvas);
@@ -744,7 +768,7 @@ function resizeCanvas(){
     canvas.style.width  = fitSize.width  + "px";
     canvas.style.height = fitSize.height + "px";
 
-    console.log(fitSize, window.innerWidth);
+    console.log(fitSize, window.innerWidth, window.innerHeight);
 }
 
 function scale_to_fit(originalWidth, originalHeight, parentWidth, parentHeight) {

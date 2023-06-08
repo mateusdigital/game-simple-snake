@@ -23,46 +23,53 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link href="./css/main.css" rel="stylesheet" type="text/css">
-    <title>Simple Snake - _version_ - mateus.digital</title>
+  <link href="./css/main.css" rel="stylesheet" type="text/css">
+  <title>Simple Snake - _version_ - mateus.digital</title>
 </head>
 
 <!-- version: _version_  build: _build_ date: _date_ -->
 
 <body>
+  <script>
+    // Page is embedded
+    if (window !== window.top) {
+      document.body.style.backgroundColor = "transparent";
+    }
+  </script>
 
-<!-- ----------------------------------------------------------------------- -->
-<!-- Canvas                                                                  -->
-<!-- ----------------------------------------------------------------------- -->
-<div id="canvas_div">
-</div>
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- Canvas                                                                  -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div id="canvas_div">
+  </div>
 
 
-<!-- ----------------------------------------------------------------------- -->
-<!-- Scripts                                                                 -->
-<!-- ----------------------------------------------------------------------- -->
-<!-- Libs -->
-<script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/chroma.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/perlin.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/tween.umd.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Array.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Input.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Math.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Noise.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Random.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Shake.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/String.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Timer.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Tween.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Utils.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Vector.js"></script>
-<script type="text/javascript" src="./libs/mcow_js_core/src/Window.js"></script>
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- Scripts                                                                 -->
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- Libs -->
+  <script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/chroma.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/perlin.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/libs/third_party/tween.umd.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Array.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Input.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Math.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Noise.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Random.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Shake.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/String.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Timer.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Tween.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Utils.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Vector.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_core/src/Window.js"></script>
 
-<script type="text/javascript" src="./libs/mcow_js_canvas/src/Canvas.js"></script>
+  <script type="text/javascript" src="./libs/mcow_js_canvas/src/Canvas.js"></script>
 
-<!-- Game -->
-<script type="text/javascript" src="./src/Version.js"></script>
-<script type="text/javascript" src="./src/Snake.js"></script>
+  <!-- Game -->
+  <script type="text/javascript" src="./src/Version.js"></script>
+  <script type="text/javascript" src="./src/Snake.js"></script>
 
 </html>
