@@ -10,7 +10,7 @@
 //  Date      : Aug 25, 2019                                                  //
 //  License   : GPLv3                                                         //
 //  Author    : stdmatt <stdmatt@pixelwizards.io>                             //
-//  Copyright : stdmatt 2019, 2020                                            //
+//  Copyright : stdmatt 2019, 2020, 2023                                      //
 //                                                                            //
 //  Description :                                                             //
 //                                                                            //
