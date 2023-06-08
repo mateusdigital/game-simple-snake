@@ -2,11 +2,12 @@
 
 **Made with <3 by [mateus.digital](https://mateus.digital).**
 
-## Description:
 
 <p align="center">
     <img style="border-radius: 10px;" src="./res/readme_game.gif"/>
 </p>
+
+## Description:
 
 Simple Snake is __syntwave-esque__ rendition of the classic snake game.
 
