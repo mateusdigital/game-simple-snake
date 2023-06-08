@@ -10,58 +10,42 @@
 /*  Date      : Mar 27, 2020                                                  */
 /*  License   : GPLv3                                                         */
 /*  Author    : stdmatt <stdmatt@pixelwizards.io>                             */
-/*  Copyright : stdmatt 2020                                                  */
+/*  Copyright : stdmatt 2020, 2023                                            */
 /*                                                                            */
 /*  Description :                                                             */
 /*---------------------------------------------------------------------------~*/
 
-@font-face {
-  font-family: 'unsteady_oversteerregular';
-  src: url('unsteady_oversteer-webfont.woff2') format('woff2'),
-       url('unsteady_oversteer-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'JetBrainsMono-Regular';
-  src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-#logo_div {
-  font-family: "unsteady_oversteerregular";
-  color: white;
-  font-size: 40px;
-  position:fixed;
-    top   : 5%;
-    bottom: 10%;
-    right : 15%;
-    left  : 15%;
-    text-align: center;
-}
-
-#canvas_div {
-    position:fixed;
-    top   : 15%;
-    bottom: 10%;
-    right : 15%;
-    left  : 15%;
-
-    box-shadow:2px 2px 8px 0px #EFE9D3;
-    text-align: center;
+*::before,
+*::after,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: #0f0f0f;
-  margin: 0 0 0 0;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+
 }
 
-#footer {
-  font-family: "JetBrainsMono-Regular", Monospace, Courier;
-  position: absolute;
-  bottom: 1em;
-  text-align: center;
+#canvas_div {
+  padding: 20px;
+
+  margin-left:  auto;
+  margin-right: auto;
+
+  display: block;
   width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+  margin-left:  auto;
+  margin-right: auto;
+  border-radius: 10px;
 }

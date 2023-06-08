@@ -21,9 +21,9 @@
 //----------------------------------------------------------------------------//
 // Constants                                                                  //
 //----------------------------------------------------------------------------//
-const BLOCK_SIZE         = 20;
+const BLOCK_SIZE         = 15;
 const BLOCK_HALF_SIZE    = BLOCK_SIZE * 0.5;
-const FOOD_MIN_COUNT     =  4;
+const FOOD_MIN_COUNT     =  8;
 const SNAKE_INITIAL_SIZE =  5;
 const SNAKE_TIME_TO_MOVE = 0.1;
 
@@ -80,9 +80,7 @@ function ApplyShadowCSS()
         target_color
     );
 
-    document.getElementById("canvas_div" ).style.boxShadow = css_str;
-    document.getElementById("logo_div"   ).style.color     = current_color;
-    document.getElementById("footer"     ).style.color     = current_color;
+    document.querySelector("canvas" ).style.boxShadow = css_str;
 }
 
 //------------------------------------------------------------------------------
@@ -710,30 +708,60 @@ class Trail
 // Setup / Draw                                                               //
 //----------------------------------------------------------------------------//
 //------------------------------------------------------------------------------
-function InitializeCanvas()
-{
-    //
-    // Configure the Canvas.
-    const parent        = document.getElementById("canvas_div");
-    const parent_width  = parent.clientWidth;
-    const parent_height = parent.clientHeight;
+let originalWidth  = 800;
+let originalHeight = 600;
 
-    const max_side = Math_Max(parent_width, parent_height);
-    const min_side = Math_Min(parent_width, parent_height);
+//------------------------------------------------------------------------------
+function InitializeCanvas(){
+    const canvas = document.getElementById("canvas_div");
 
-    const ratio = min_side / max_side;
-
-    // Landscape
-    if(parent_width > parent_height) {
-        Canvas_CreateCanvas(800, 800 * ratio, parent);
-    }
-    // Portrait
-    else {
-        Canvas_CreateCanvas(800 * ratio, 800, parent);
+    if(window.innerHeight > window.innerWidth) {
+        const t = originalWidth;
+        originalWidth = originalHeight;
+        originalHeight = originalWidth;
     }
 
-    Canvas.style.width  = "100%";
-    Canvas.style.height = "100%";
+    Canvas_CreateCanvas(originalWidth, originalHeight, canvas);
+    resizeCanvas();
+
+    window.addEventListener('resize', resizeCanvas);
+}
+
+function resizeCanvas(){
+    const canvas = document.querySelector("canvas");
+
+    const parentWidth  = canvas.parentElement.clientWidth;
+    const parentHeight = Math.min(canvas.parentElement.clientHeight, window.innerHeight);
+
+    const fitSize = scale_to_fit(
+        originalWidth,
+        originalHeight,
+        parentWidth   - 40,
+        parentHeight  - 40
+        );
+
+    // css
+    canvas.style.width  = fitSize.width  + "px";
+    canvas.style.height = fitSize.height + "px";
+
+    console.log(fitSize, window.innerWidth);
+}
+
+function scale_to_fit(originalWidth, originalHeight, parentWidth, parentHeight) {
+    const aspectRatio          = originalWidth / originalHeight;
+    const containerAspectRatio = parentWidth / parentHeight;
+
+    let width, height;
+
+    if (containerAspectRatio > aspectRatio) {
+        width = parentHeight * aspectRatio;
+        height = parentHeight;
+    } else {
+        width = parentWidth;
+        height = parentWidth / aspectRatio;
+    }
+
+    return { width, height };
 }
 
 //------------------------------------------------------------------------------
@@ -758,10 +786,6 @@ function Setup()
 
     RestartGame();
     Canvas_Draw(0);
-
-    document.getElementById("footer").innerText = String_Cat(
-        "v", SIMPLE_SNAKE_VERSION, " - stdmatt MMXX - GPLv3"
-    );
 }
 
 //------------------------------------------------------------------------------
