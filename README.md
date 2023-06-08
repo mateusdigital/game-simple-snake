@@ -1,32 +1,41 @@
 # Simple Snake
 
-**Made with <3 by [stdmatt](http://stdmatt.com).**
+**Made with <3 by [mateus.digital](https://mateus.digital).**
 
-<!--  -->
 ## Description:
 
 <p align="center">
-    <img src="./res/simple_snake.gif"/>
+    <img style="border-radius: 10px;" src="./res/readme_game.gif"/>
 </p>
 
-Because everyone needs to create a snake game at some point in life.
+Simple Snake is __syntwave-esque__ rendition of the classic snake game.
 
-You can play it [here](https://stdmatt.com/deploy/games/simple_snake/index.html)
+You can [play it online](https://mateus.digital/simple_snake).
+
+<br>
 
 As usual, you are **very welcomed** to **share** and **hack** it.
 
-<!--  -->
-## Dependencies:
 
-* [mcow_js_core](https://stdmatt.com/projects/libs/js/mcow_js_core.html)
-* [mcow_js_canvas](https://stdmatt.com/projects/libs/js/mcow_js_canvas.html)
+## Building
 
-<!--  -->
+
+```bash
+git clone https://github.com/mateus.digital/simple_snake
+cd simple_snake
+./scripts/build-static.sh      ## Builds the webpage for the game.
+```
+## Thanks to:
+
+I used a lot of free and open resources, for which I'm most grateful!
+
+- [chroma.js](https://www.vis4.net/chromajs/)
+
 ## License:
 
 This software is released under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-<!--  -->
+
 ## Others:
 
-There's more FLOSS things at [stdmatt.com](https://stdmatt.com) :)
+There's more FLOSS things at [mateus.digital](https://mateus.digital) :)
